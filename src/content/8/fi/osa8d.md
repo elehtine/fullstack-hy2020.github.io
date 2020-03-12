@@ -108,7 +108,7 @@ const LoginForm = ({ setError, setToken }) => {
 export default LoginForm
 ```
 
-Käytössä on jälleen efektihookki, jonka avulla asetetaan tokenin arvo komponentin _App_ tilaan sekä local storageen siinä vaiheessa kun palvelin on vastannut mutaatioon. Efektihookki on tarpeen, jotta sovellus ei joutuisi ikuiseen renderöintilooppiin.
+Käytössä on jälleen efektihookki, jonka avulla asetetaan tokenin arvo komponentin _App_ tilaan sekä local storageen siinä vaiheessa kun palvelin on vastannut mutaatioon. Efektihookki on tarpeen, koska komponentti saa muuttaa vain omaa tilaansa renderöinnin aikana. Funktio _setToken_ muuttaa komponentin _App_ tilaa, joten sitä pitää kutsua efektihookin sisällä. Aiheesta lisää esim. [täältä](https://stackoverflow.com/questions/60526786/react-warning-cannot-update-a-component-from-inside-the-function-body-of-a-diff?answertab=votes#tab-top).
 
 Lisätään sovellukselle myös nappi, jonka avulla kirjautunut käyttäjä voi kirjautua ulos. Napin klikkauskäsittelijässä asetetaan  _token_ tilaan null, poistetaan token local storagesta ja resetoidaan Apollo clientin välimuisti. Tämä on [tärkeää](https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout), sillä joissain kyselyissä välimuistiin on saatettu hakea dataa, johon vain kirjaantuneella käyttäjällä on oikeus päästä käsiksi.
 
